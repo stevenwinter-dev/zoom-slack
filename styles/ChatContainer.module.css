@@ -1,0 +1,21 @@
+.chatcontainer {
+    height: 100%;
+    background-color: #F3F5F7;
+    border-top-left-radius: 30px;
+    padding: 15px 25px;
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    flex-direction: column;
+    box-shadow: rgba(0, 0, 0, 0.35) 2px 1px 10px inset;
+}
+
+.chatcontainer, .chatcontainer-messages {
+    width: 80%;
+}
+
+.chatcontainer-messages {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}

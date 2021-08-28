@@ -1,20 +1,41 @@
-.create-message-container {
+.index-container {
+    height: 100vh;
+    width: 100vw;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+.index-container h1 {
+    margin: 0;
+}
+
+.container h1 {
+    font-size: 5rem;
+    color: white;
+}
+
+.index-container h1 i {
+    color:navy;
+}
+
+.index-form-container {
     background-color: white;
     margin: 15px;
-    width: 65%;
+    width: 45%;
     border-radius: 10px;
     box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
     position: relative;
 }
 
-.create-message-container input{
+.index-form-container input{
     border: 1px solid transparent;
-    width: 80%;
     padding: 15px;
     border-radius: 10px;
 }
 
-.create-message-container button {
+.index-form-container button {
     color: white;
     background-color: navy;
     position: absolute;
@@ -29,11 +50,12 @@
     transition: .2s;
 }
 
-.create-message-container button i {
+.index-form-container button i {
     font-size: 1.25rem;
+    color: white;
 }
 
-.create-message-container button:hover {
+.index-form-container button:hover {
     background-color: #2ebf91;
     border: 1px solid #2ebf91b9;
     color: #F3F5F7;

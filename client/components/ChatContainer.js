@@ -31,6 +31,7 @@ const ChatContainer = ({socket, user, channel}) => {
             setChats(current => [...current, messageData])
         }
         e.target.body.value = ''
+        setNewMessage('')
     }
 
     // const handleSubmit = (e) => {

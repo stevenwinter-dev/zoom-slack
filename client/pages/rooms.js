@@ -24,7 +24,7 @@ export default function Home() {
         </Head>
         <Nav />
         <div className={styles.container} onClick={joinChannel}>
-            <Sidebar />
+            <Sidebar setChannel={setChannel} />
             <ChatContainer socket={socket} user={user} channel={channel} />
         </div>
     </>

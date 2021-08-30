@@ -2,4 +2,23 @@
     background-color: transparent;
     height: 100%;
     width: 20%;
+    padding-top: 25px;
+}
+
+.sidebar ul {
+    list-style-type: none;
+}
+
+.sidebar li {
+    margin-top: 45px;
+    color: white;
+    border-bottom: 1px solid transparent;
+    width: fit-content;
+    cursor: pointer;
+    transition: .2s;
+}
+
+.sidebar li:hover {
+    border-bottom: 1px solid white;
+    transform: scale(1.05);
 }

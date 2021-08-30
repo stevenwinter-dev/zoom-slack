@@ -3,16 +3,35 @@ const app = express()
 const socketio = require('socket.io')
 const http = require('http')
 const server = http.createServer(app)
-const io = socketio(server)
 const router = require('./router')
+const cors = require('cors')
+const { Server } = require('socket.io')
 
+app.use(cors())
 app.use(router)
 
+const io = new Server(server, {
+    cors: {
+        origin: "http://localhost:3000",
+        methods: ['GET', 'POST'],
+    },
+})
+
 io.on('connection', socket => {
-    console.log('NEW CONNECTION!!!')
+    console.log('connected')
 
     socket.on('disconnect', () => {
-        console.log('DISCONNECTED')
+        console.log('disconnected')
+    })
+
+    socket.on('join', (req) => {
+        socket.join(req)
+        console.log(`User with ID: ${socket.id} joined ${req}`)
+    })
+
+    socket.on('send', msg => {
+        console.log(`new CL ${msg.room}`)
+        socket.to(msg.room).emit('receive', msg)
     })
 })
 

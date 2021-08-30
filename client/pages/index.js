@@ -1,5 +1,6 @@
 import Head from 'next/head'
 import indexStyles from '../styles/Index.module.css'
+import Link from 'next/link'
 
 export default function Home() {
   const handleSubmit = () => {
@@ -21,6 +22,7 @@ export default function Home() {
                 </button>
             </form>
         </div>
+        <Link href='/rooms'>Enter</Link>
       </div>
     </>
   )

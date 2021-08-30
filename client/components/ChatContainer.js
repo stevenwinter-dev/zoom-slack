@@ -75,7 +75,7 @@ const ChatContainer = ({socket, user, channel}) => {
 
     return (
         <div className={chatContainerStyles.chatcontainer}>
-            <h2>I'm a chat container</h2>
+            <h2>{channel}</h2>
             <div className={chatContainerStyles['chatcontainer-messages']} id='chat-msg-container'>
                 {chats.map(chat => <Message chat={chat} key={chat.body} />)}
                 <ScrollToBot />

@@ -1,8 +1,9 @@
 import sidebarStyles from '../styles/Sidebar.module.css'
+import { useState } from 'react'
 
-const Sidebar = ({setChannel}) => {
+const Sidebar = ({setChannel, setPreviousChannel, channel}) => {
     const handleClick = (e) => {
-        console.log(e.target.innerHTML)
+        setPreviousChannel(channel)
         setChannel(e.target.innerHTML)
     }
     return (

@@ -29,6 +29,10 @@ io.on('connection', socket => {
         console.log(`User with ID: ${socket.id} joined ${req}`)
     })
 
+    socket.on('leave', prevRoom => {
+        socket.leave(prevRoom)
+    })
+
     socket.on('send', msg => {
         console.log(`new CL ${msg.room}`)
         socket.to(msg.room).emit('receive', msg)

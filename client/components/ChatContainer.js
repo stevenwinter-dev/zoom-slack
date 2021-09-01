@@ -65,8 +65,6 @@ const ChatContainer = ({socket, user, channel}) => {
         setNewMessage(e.target.value)
     }
 
-    
-
     useEffect(() => {
         socket.on('receive', msg => {
             setChats(current => [...current, msg])
@@ -77,7 +75,7 @@ const ChatContainer = ({socket, user, channel}) => {
         <div className={chatContainerStyles.chatcontainer}>
             <h2>{channel}</h2>
             <div className={chatContainerStyles['chatcontainer-messages']} id='chat-msg-container'>
-                {chats.map(chat => <Message chat={chat} key={chat.body} />)}
+                {chats.map(chat => chat.room === channel ? <Message chat={chat} key={chat.body} /> : null)}
                 <ScrollToBot />
             </div>
             <CreateMessage ScrollToBot={ScrollToBot} handleSubmit={sendMessage} text={text} />

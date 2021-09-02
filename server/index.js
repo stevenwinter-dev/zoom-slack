@@ -1,14 +1,45 @@
 const express = require('express')
 const app = express()
-const socketio = require('socket.io')
 const http = require('http')
 const server = http.createServer(app)
 const router = require('./router')
 const cors = require('cors')
 const { Server } = require('socket.io')
+const pool = require('./db')
 
 app.use(cors())
+app.use(express.json())
 app.use(router)
+
+app.get('/messages', async(req, res) => {
+    try {
+        const messages = await pool.query('SELECT * FROM message');
+        res.json(messages.rows)
+    } catch (err) {
+        console.log(err)
+    }
+})
+
+app.get('/messages/:id', async(req, res) => {
+    try {
+        const messages = await pool.query('SELECT * FROM message WHERE channel = $1', [req.params.id]);
+        res.json(messages.rows)
+    } catch (err) {
+        console.log(err)
+    }
+})
+
+app.post('/messages', async(req, res) => {
+    console.log(req.body)
+    try {
+        console.log('message sent!')
+        const { user_name, body, channel, date, time } = req.body.data
+        const newMessage = await pool.query('INSERT INTO message (user_name, body, channel, date, time) VALUES ($1, $2, $3, $4, $5) RETURNING *', [user_name, body, channel, date, time])
+        console.log(req.body)
+    } catch (err) {
+        console.log(err)
+    }
+})
 
 const io = new Server(server, {
     cors: {

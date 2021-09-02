@@ -4,10 +4,12 @@ import CreateMessage from './CreateMessage'
 import Message from './Message'
 import chatData from '../seed'
 import messageStyles from '../styles/Message.module.css'
+import axios from 'axios'
 
 
 const ChatContainer = ({socket, user, channel}) => {
-    
+
+    const [chats, setChats] = useState([])
     const [newMessage, setNewMessage] = useState('')
     const elementRef = useRef()
 
@@ -21,19 +23,22 @@ const ChatContainer = ({socket, user, channel}) => {
         if (newMessage !== '') {
             const currentDate = new Date()
             const messageData = {
-                user: user,
-                room: channel,
+                user_name: user,
                 body: newMessage,
+                channel: channel,
                 date: currentDate.toLocaleDateString(),
                 time: currentDate.getHours() + ":" + currentDate.getMinutes() + ":" + currentDate.getSeconds()
             }
+            axios.post('http://localhost:3001/messages',{
+                data: messageData
+            })
+            console.log(newMessage)
             await socket.emit('send', messageData)
             setChats(current => [...current, messageData])
         }
         e.target.body.value = ''
         setNewMessage('')
     }
-
     // const handleSubmit = (e) => {
     //     e.preventDefault()
     //     const currentDate = new Date()
@@ -59,7 +64,15 @@ const ChatContainer = ({socket, user, channel}) => {
     //     elementRef.current.scrollIntoView()
     // }
 
-    const [chats, setChats] = useState([])
+    const fetchData = async (channel) => {
+        let response = await axios(`http://localhost:3001/messages/${channel}`)
+        console.log(response.data)
+        setChats(response.data)
+    }
+
+    useEffect(()=> {
+        fetchData(channel)
+    }, [channel])
 
     const text = (e) => {
         setNewMessage(e.target.value)
@@ -75,10 +88,10 @@ const ChatContainer = ({socket, user, channel}) => {
         <div className={chatContainerStyles.chatcontainer}>
             <h2>{channel}</h2>
             <div className={chatContainerStyles['chatcontainer-messages']} id='chat-msg-container'>
-                {chats.map(chat => chat.room === channel ? <Message chat={chat} key={chat.body} /> : null)}
+                {chats.map(chat => chat.channel === channel ? <Message chat={chat} key={chat.body} /> : null)}
                 <ScrollToBot />
             </div>
-            <CreateMessage ScrollToBot={ScrollToBot} handleSubmit={sendMessage} text={text} />
+            <CreateMessage user={user} ScrollToBot={ScrollToBot} handleSubmit={sendMessage} text={text} />
         </div>
     )
 }

@@ -65,8 +65,8 @@ io.on('connection', socket => {
     })
 
     socket.on('send', msg => {
-        console.log(`new CL ${msg.room}`)
-        socket.to(msg.room).emit('receive', msg)
+        console.log(`new CL ${msg.channel}`)
+        socket.to(msg.channel).emit('receive', msg)
     })
 })
 

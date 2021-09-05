@@ -11,6 +11,10 @@ app.use(cors())
 app.use(express.json())
 app.use(router)
 
+app.post('/user/signup', (req, res) => {
+    console.log(req.body.data)
+})
+
 app.get('/messages', async(req, res) => {
     try {
         const messages = await pool.query('SELECT * FROM message');

@@ -19,7 +19,7 @@ const Nav = ({user}) => {
                     <Link href='#'>Login</Link>
                 </li>
                 <li>
-                    <Link href='#'>Signup</Link>
+                    <Link href='/signup'>Signup</Link>
                 </li>
             </ul>
         </nav>

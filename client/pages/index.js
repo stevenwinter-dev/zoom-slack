@@ -13,7 +13,7 @@ export default function Home() {
 
   const [loggedIn, setLoggedIn] = useState(false)
   const [user, setUser] = useState('')
-  const [channel, setChannel] = useState('main')
+  const [channel, setChannel] = useState('Channel 1')
   const [previousChannel, setPreviousChannel] = useState('')
   console.log(channel, previousChannel)
   

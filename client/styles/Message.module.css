@@ -1,4 +1,4 @@
-.message {
+.message-container {
     background-color: white;
     margin: 15px;
     width: 80%;
@@ -9,4 +9,14 @@
 
 .message span {
     margin: 0 15px;
+}
+
+.message {
+    display: flex;
+}
+
+.message img {
+    width: 50px;
+    border-radius: 25px;
+    margin-right: 10px;
 }

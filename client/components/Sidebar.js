@@ -13,6 +13,7 @@ const Sidebar = ({setChannel, setPreviousChannel, channel}) => {
                 <li onClick={handleClick}>Channel 2</li>
                 <li onClick={handleClick}>Channel 3</li>
                 <li onClick={handleClick}>Channel 4</li>
+                <li onClick={handleClick}>Video</li>
             </ul>
         </div>
     )

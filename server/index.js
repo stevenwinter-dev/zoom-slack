@@ -1,3 +1,4 @@
+require('dotenv').config()
 const express = require('express')
 const app = express()
 const http = require('http')
@@ -6,6 +7,11 @@ const router = require('./router')
 const cors = require('cors')
 const { Server } = require('socket.io')
 const pool = require('./db')
+const util = require('util')
+
+const users = {};
+
+const socketToRoom = {};
 
 app.use(cors())
 app.use(express.json())
@@ -54,6 +60,34 @@ const io = new Server(server, {
 
 io.on('connection', socket => {
     console.log('connected')
+
+    socket.on("join room", roomID => {
+        console.log(roomID)
+        console.log(util.inspect(users, false, null));
+        console.log(`IMA USERS ${users}`)
+        if (users[roomID]) {
+            const length = users[roomID].length;
+            if (length === 4) {
+                socket.emit("room full");
+                return;
+            }
+            users[roomID].push(socket.id);
+        } else {
+            users[roomID] = [socket.id];
+        }
+        socketToRoom[socket.id] = roomID;
+        const usersInThisRoom = users[roomID].filter(id => id !== socket.id);
+
+        socket.emit("all users", usersInThisRoom);
+    });
+
+    socket.on("sending signal", payload => {
+        io.to(payload.userToSignal).emit('user joined', { signal: payload.signal, callerID: payload.callerID });
+    });
+
+    socket.on("returning signal", payload => {
+        io.to(payload.callerID).emit('receiving returned signal', { signal: payload.signal, id: socket.id });
+    });
 
     socket.on('disconnect', () => {
         console.log('disconnected')

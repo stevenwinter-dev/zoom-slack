@@ -5,6 +5,7 @@ import Message from './Message'
 import chatData from '../seed'
 import messageStyles from '../styles/Message.module.css'
 import axios from 'axios'
+import Room from './Room'
 
 
 // const ChatContainer = ({socket, user, channel}) => {
@@ -129,16 +130,21 @@ const ChatContainer = ({socket, user, channel}) => {
             setChats(current => [...current, msg])
         })
     }, [socket])
-    
 
     return (
         <div className={chatContainerStyles.chatcontainer}>
+        {channel != 'Video' ? 
+            <>
             <h2>{channel}</h2>
             <div className={chatContainerStyles['chatcontainer-messages']} id='chat-msg-container'>
                 {chats.map(chat => chat.channel === channel ? <Message chat={chat} key={chat.time} /> : null)}
                 <ScrollToBot />
             </div>
             <CreateMessage user={user} ScrollToBot={ScrollToBot} handleSubmit={sendMessage} text={text} />
+             </>
+        : 
+        <Room channel='video' />
+        }
         </div>
     )
 }

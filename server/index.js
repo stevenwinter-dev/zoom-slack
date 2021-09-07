@@ -8,6 +8,7 @@ const cors = require('cors')
 const { Server } = require('socket.io')
 const pool = require('./db')
 const util = require('util')
+const auth = require('./Auth/jwtAuth')
 
 const users = {};
 
@@ -16,6 +17,7 @@ const socketToRoom = {};
 app.use(cors())
 app.use(express.json())
 app.use(router)
+app.use('/authentication', auth)
 
 app.post('/user/signup', (req, res) => {
     console.log(req.body.data)

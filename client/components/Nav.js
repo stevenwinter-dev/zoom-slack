@@ -16,7 +16,7 @@ const Nav = ({user}) => {
                     null
                 }
                 <li>
-                    <Link href='#'>Login</Link>
+                    <Link href='/login'>Login</Link>
                 </li>
                 <li>
                     <Link href='/signup'>Signup</Link>

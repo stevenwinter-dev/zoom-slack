@@ -11,7 +11,6 @@ const util = require('util')
 const auth = require('./Auth/jwtAuth')
 
 const users = {};
-
 const socketToRoom = {};
 
 app.use(cors())

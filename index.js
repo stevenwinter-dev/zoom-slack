@@ -17,7 +17,7 @@ app.use(cors())
 app.use(express.json())
 app.use('/authentication', auth)
 
-app.use(express.static(path.join(__dirname, 'client/build')))
+app.use(express.static(path.join(__dirname, './client/build')))
 
 app.get('/userInfo/:id', async(req, res) => {
     console.log(req.params)

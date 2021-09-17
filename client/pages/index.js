@@ -10,7 +10,8 @@ import io from 'socket.io-client'
 import axios from 'axios'
 import jwt from 'jsonwebtoken'
 
-const socket = io.connect('http://localhost:3001')
+// const socket = io.connect('http://localhost:3001')
+const socket = io.connect('https://zoom-slack.herokuapp.com/')
 
 export default function Home() {
 
@@ -47,7 +48,8 @@ export default function Home() {
             email: e.target.email.value,
             password: e.target.password.value,
         }
-        axios.post('http://localhost:3001/authentication/login', {
+        // axios.post('http://localhost:3001/authentication/login', {
+        axios.post('https://zoom-slack.herokuapp.com/authentication/login', {
             data: data
         }).then(res => {
           const token = res.data.token
@@ -67,7 +69,8 @@ export default function Home() {
           password: e.target.password.value,
           avatar: e.target.avatar.value
       }
-      axios.post('http://localhost:3001/authentication/register', {
+      // axios.post('http://localhost:3001/authentication/register', {
+      axios.post('https://zoom-slack.herokuapp.com/authentication/register', {
           data: data
       })
   }

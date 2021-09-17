@@ -10,7 +10,8 @@ const signup = () => {
             password: e.target.password.value,
             avatar: e.target.avatar.value
         }
-        axios.post('http://localhost:3001/authentication/register', {
+        // axios.post('http://localhost:3001/authentication/register', {
+        axios.post('https://zoom-slack.herokuapp.com/authentication/register', {
             data: data
         })
     }

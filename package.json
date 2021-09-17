@@ -3,11 +3,16 @@
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
-  "scripts": {
-    "start": "nodemon index.js",
-    "test": "echo \"Error: no test specified\" && exit 1"
+  "engines": {
+    "node": "15.11.0",
+    "npm": "7.6.0"
   },
-  "author": "",
+  "scripts": {
+    "start": "node index.js",
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "heroku-postbuild": "cd client && npm install && npm run build"
+  },
+  "author": "Steven Winter",
   "license": "ISC",
   "dependencies": {
     "bcrypt": "^5.0.1",

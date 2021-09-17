@@ -9,6 +9,7 @@ const { Server } = require('socket.io')
 const pool = require('./db')
 const util = require('util')
 const auth = require('./Auth/jwtAuth')
+const path = require('path')
 
 const users = {};
 const socketToRoom = {};
@@ -17,6 +18,12 @@ app.use(cors())
 app.use(express.json())
 app.use(router)
 app.use('/authentication', auth)
+
+if (process.env.NODE_ENV === 'production') {
+    app.use(express.static(path.join(__dirname, 'client/build')))
+}
+
+console.log(__dirname)
 
 app.get('/userInfo/:id', async(req, res) => {
     console.log(req.params)

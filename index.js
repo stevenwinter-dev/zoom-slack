@@ -17,7 +17,15 @@ app.use(cors())
 app.use(express.json())
 app.use('/authentication', auth)
 
-app.use(express.static(path.join(__dirname, './client/build')))
+// if (process.env.NODE_ENV === 'production') {
+//     app.use(express.static(path.join(__dirname, 'client/build')))
+// }
+
+// console.log(__dirname)
+
+// app.get('/', (req,res) => {
+//     res.send('backend')
+// })
 
 app.get('/userInfo/:id', async(req, res) => {
     console.log(req.params)
@@ -68,7 +76,7 @@ app.post('/messages', async(req, res) => {
 const io = new Server(server, {
     cors: {
         // origin: "http://localhost:3000",
-        origin: "https://zoom-slack.herokuapp.com/",
+        origin: "https://zoom-slack.vercel.app/",
         methods: ['GET', 'POST'],
     },
 })

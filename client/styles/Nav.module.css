@@ -1,6 +1,6 @@
 .nav {
    background-color: transparent;
-    width: 100%;
+    width: 96%;
     height: 10vh;
     display: flex;
     justify-content: space-between;
@@ -16,7 +16,7 @@
 
 .nav-icon-container {
     display: flex;
-    width: 30%;
+    /* width: 30%; */
     margin-left: 70px;
     align-items: baseline;
 }

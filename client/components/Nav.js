@@ -1,18 +1,25 @@
 import navStyle from '../styles/Nav.module.css'
 import Link from 'next/link'
 
-const Nav = () => {
+const Nav = ({user, showLogin, showRegister}) => {
     return (
         <nav className={navStyle.nav}>
             <div className={navStyle['nav-icon-container']}>
                 <h1>ZOOM <i className="far fa-comment-dots"></i> SLACK</h1>
             </div>
             <ul>
-                <li>
-                    <Link href='#'>Login</Link>
+                {user ?
+                    <li>
+                        <Link href='#'>{user}</Link>
+                    </li>
+                    :
+                    null
+                }
+                <li onClick={showLogin}>
+                    Login
                 </li>
-                <li>
-                    <Link href='#'>Signup</Link>
+                <li onClick={showRegister}>
+                    Signup
                 </li>
             </ul>
         </nav>

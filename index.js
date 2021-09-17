@@ -75,11 +75,7 @@ app.post('/messages', async(req, res) => {
 })
 
 const io = new Server(server, {
-    cors: {
-        // origin: "http://localhost:3000",
-        origin: "https://zoom-slack.herokuapp.com/",
-        methods: ['GET', 'POST'],
-    },
+    cors: {},
 })
 
 io.on('connection', socket => {

@@ -75,7 +75,10 @@ app.post('/messages', async(req, res) => {
 })
 
 const io = new Server(server, {
-    cors: {},
+    cors: {
+        origin: "http://localhost:3000",
+        methods: ['GET', 'POST'],
+    },
 })
 
 io.on('connection', socket => {

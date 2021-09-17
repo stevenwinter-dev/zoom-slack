@@ -3,7 +3,6 @@ const express = require('express')
 const app = express()
 const http = require('http')
 const server = http.createServer(app)
-const router = require('./router')
 const cors = require('cors')
 const { Server } = require('socket.io')
 const pool = require('./db')
@@ -16,7 +15,6 @@ const socketToRoom = {};
 
 app.use(cors())
 app.use(express.json())
-app.use(router)
 app.use('/authentication', auth)
 
 if (process.env.NODE_ENV === 'production') {

@@ -17,8 +17,8 @@ app.use(cors())
 app.use(express.json())
 app.use('/authentication', auth)
 
-if (process.env.PROD) {
-    app.use(express.static(path.join(__dirname, './client/build')))
+if (process.env.NODE_ENV === 'production') {
+    app.use(express.static(path.join(__dirname, 'client/build')))
 }
 
 console.log(__dirname)
@@ -72,7 +72,7 @@ app.post('/messages', async(req, res) => {
 const io = new Server(server, {
     cors: {
         // origin: "http://localhost:3000",
-        origin: "https://zoom-slack.herokuapp.com",
+        origin: "https://zoom-slack.herokuapp.com/",
         methods: ['GET', 'POST'],
     },
 })

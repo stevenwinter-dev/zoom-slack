@@ -11,6 +11,8 @@ CREATE TABLE users(
 CREATE TABLE message(
     message_id SERIAL PRIMARY KEY,
     user_id INT,
+    user_name TEXT,
+    user_avatar TEXT,
     body TEXT,
     channel TEXT,
     date TEXT,

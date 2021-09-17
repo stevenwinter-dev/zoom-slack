@@ -6,6 +6,7 @@ const jwtGen = require('./jwtGen')
 
 //Register
 router.post('/register', async (req,res) => {
+    console.log('register route')
     try {
         const {name, email, password, avatar} = req.body.data
         const user = await pool.query('SELECT * FROM users WHERE user_email = $1', [email]);

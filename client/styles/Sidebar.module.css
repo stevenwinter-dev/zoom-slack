@@ -22,3 +22,13 @@
     border-bottom: 1px solid white;
     transform: scale(1.05);
 }
+
+@media only screen and (max-width: 740px) {
+    .sidebar {
+        font-size: .7rem;
+    }
+
+    .sidebar ul {
+        padding-left: 10px;
+    }
+}

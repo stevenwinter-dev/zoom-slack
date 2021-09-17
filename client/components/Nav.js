@@ -1,7 +1,7 @@
 import navStyle from '../styles/Nav.module.css'
 import Link from 'next/link'
 
-const Nav = ({user}) => {
+const Nav = ({user, showLogin, showRegister}) => {
     return (
         <nav className={navStyle.nav}>
             <div className={navStyle['nav-icon-container']}>
@@ -15,11 +15,11 @@ const Nav = ({user}) => {
                     :
                     null
                 }
-                <li>
-                    <Link href='/login'>Login</Link>
+                <li onClick={showLogin}>
+                    Login
                 </li>
-                <li>
-                    <Link href='/signup'>Signup</Link>
+                <li onClick={showRegister}>
+                    Signup
                 </li>
             </ul>
         </nav>

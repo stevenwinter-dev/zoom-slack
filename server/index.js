@@ -18,6 +18,18 @@ app.use(express.json())
 app.use(router)
 app.use('/authentication', auth)
 
+app.get('/userInfo/:id', async(req, res) => {
+    console.log(req.params)
+    console.log(req.params.id)
+   try {
+       if(req.params.id != 'null') {
+        const data = await pool.query('SELECT * FROM users WHERE user_id = $1', [parseInt(req.params.id)])
+        res.json(data.rows)}
+   } catch (err) {
+       console.log(err)
+   }
+})
+
 app.post('/user/signup', (req, res) => {
     console.log(req.body.data)
 })

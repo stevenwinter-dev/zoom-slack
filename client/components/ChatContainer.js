@@ -78,10 +78,12 @@ import Room from './Room'
 // export default ChatContainer
 
 
-const ChatContainer = ({socket, user, channel}) => {
+const ChatContainer = ({socket, user, channel, userId}) => {
 
     const [chats, setChats] = useState([])
     const [newMessage, setNewMessage] = useState('')
+    const [userInfo, setUserInfo] = useState({})
+    const [loading, isLoading] = useState(true)
     const elementRef = useRef()
 
     const ScrollToBot = () => {
@@ -95,9 +97,19 @@ const ChatContainer = ({socket, user, channel}) => {
         setChats(response.data)
     }
 
+    const fetchUserData = async (userId) => {
+        let response = await axios.get(`http://localhost:3001/userInfo/${userId}`)
+        setUserInfo(response.data[0])
+        console.log(response.data[0])
+    }
+
     useEffect(()=> {
         fetchData(channel)
     }, [channel])
+
+    useEffect(()=> {
+        fetchUserData(userId)
+    }, [userId])
 
     const text = (e) => {
         setNewMessage(e.target.value)
@@ -108,7 +120,7 @@ const ChatContainer = ({socket, user, channel}) => {
         if (newMessage !== '') {
             const currentDate = new Date()
             const messageData = {
-                user_name: user,
+                user_id: 4,
                 body: newMessage,
                 channel: channel,
                 date: currentDate.toLocaleDateString(),
@@ -136,6 +148,7 @@ const ChatContainer = ({socket, user, channel}) => {
         {channel != 'Video' ? 
             <>
             <h2>{channel}</h2>
+            <h2>{userInfo.user_name}</h2>
             <div className={chatContainerStyles['chatcontainer-messages']} id='chat-msg-container'>
                 {chats.map(chat => chat.channel === channel ? <Message chat={chat} key={chat.time} /> : null)}
                 <ScrollToBot />

@@ -27,7 +27,6 @@ app.use('/authentication', auth)
 //     res.send('backend')
 // })
 
-
 app.get('/userInfo/:id', async(req, res) => {
     console.log(req.params)
     console.log(req.params.id)

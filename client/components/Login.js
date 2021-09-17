@@ -1,9 +1,9 @@
 import indexStyles from '../styles/Index.module.css'
 
-const Login = ({setLoggedIn, setUser}) => {
+const Login = ({setGuest, setUser}) => {
     const handleSubmit = (e) => {
         e.preventDefault()
-        setLoggedIn(true)
+        setGuest(true)
         setUser(e.target.body.value)
     }
     return (

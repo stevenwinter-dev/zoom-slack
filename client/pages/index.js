@@ -5,6 +5,7 @@ import ChatContainer from '../components/ChatContainer'
 import Nav from '../components/Nav'
 import Sidebar from '../components/Sidebar'
 import styles from '../styles/Home.module.css'
+import formStyles from '../styles/Forms.module.css'
 import io from 'socket.io-client'
 import axios from 'axios'
 import jwt from 'jsonwebtoken'
@@ -74,9 +75,9 @@ export default function Home() {
 
     if(wantToRegister) {
     return (
-        <div className={styles['signup-container']}>
+        <div className={formStyles['signup-container']}>
             <div >
-                <form action="" onSubmit={handleRegisterSubmit} className={styles['signup-form-container']}>
+                <form action="" onSubmit={handleRegisterSubmit} className={formStyles['signup-form-container']}>
                     <label>Name</label>
                     <input type="name" name="name" />
                     
@@ -101,9 +102,9 @@ export default function Home() {
 
   if(wantToLogin) {
     return (
-    <div className={styles['signup-container']}>
+    <div className={formStyles['signup-container']}>
       <div >
-          <form action="" onSubmit={handleSubmit} className={styles['signup-form-container']}>
+          <form action="" onSubmit={handleSubmit} className={formStyles['signup-form-container']}>
               
               <label>Email</label>
               <input type="email" name="email" />

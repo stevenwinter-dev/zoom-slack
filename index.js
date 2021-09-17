@@ -27,19 +27,6 @@ app.use('/authentication', auth)
 //     res.send('backend')
 // })
 
-app.use((req, res, next) => {
-    res.header("Access-Control-Allow-Origin", "*");
-    res.header(
-      "Access-Control-Allow-Headers",
-      "Origin, X-Requested-With, Content-Type, Accept, Authorization"
-    );
-  if (req.method == "OPTIONS") {
-    res.header("Access-Control-Allow-Methods", "PUT, POST, PATCH, DELETE, GET");
-    return res.status(200).json({});
-  }
-
-  next();
-});
 
 app.get('/userInfo/:id', async(req, res) => {
     console.log(req.params)
@@ -90,7 +77,7 @@ app.post('/messages', async(req, res) => {
 const io = new Server(server, {
     cors: {
         // origin: "http://localhost:3000",
-        origin: "https://zoom-slack.vercel.app",
+        origin: "https://zoom-slack.herokuapp.com/",
         methods: ['GET', 'POST'],
     },
 })

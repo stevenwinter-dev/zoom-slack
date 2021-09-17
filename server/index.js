@@ -56,8 +56,8 @@ app.post('/messages', async(req, res) => {
     console.log(req.body)
     try {
         console.log('message sent!')
-        const { user_name, body, channel, date, time } = req.body.data
-        const newMessage = await pool.query('INSERT INTO message (user_name, body, channel, date, time) VALUES ($1, $2, $3, $4, $5) RETURNING *', [user_name, body, channel, date, time])
+        const { user_id, body, channel, date, time } = req.body.data
+        const newMessage = await pool.query('INSERT INTO message (user_id, body, channel, date, time) VALUES ($1, $2, $3, $4, $5) RETURNING *', [user_id, body, channel, date, time])
         console.log(req.body)
     } catch (err) {
         console.log(err)

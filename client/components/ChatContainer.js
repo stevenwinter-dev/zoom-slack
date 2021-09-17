@@ -120,12 +120,15 @@ const ChatContainer = ({socket, user, channel, userId}) => {
         if (newMessage !== '') {
             const currentDate = new Date()
             const messageData = {
-                user_id: 4,
+                user_id: userId,
+                user_name: userInfo.user_name,
+                user_avatar: userInfo.user_avatar,
                 body: newMessage,
                 channel: channel,
                 date: currentDate.toLocaleDateString(),
                 time: currentDate.getHours() + ":" + currentDate.getMinutes() + ":" + currentDate.getSeconds()
             }
+            console.log(userInfo)
             console.log(newMessage)
             await socket.emit('send', messageData)
             setChats(current => [...current, messageData])

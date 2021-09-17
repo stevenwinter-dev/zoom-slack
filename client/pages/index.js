@@ -36,7 +36,7 @@ export default function Home() {
     console.log(`ID: ${socket.id} joined: ${channel}`)
   }
 
-  {user && joinChannel()}
+  {userId && joinChannel()}
     
   const handleSubmit = (e) => {
         e.preventDefault()
@@ -59,6 +59,7 @@ export default function Home() {
     const handleRegisterSubmit = (e) => {
       setGuest(true)
       setWantToRegister(false)
+      setWantToLogin(true)
       const data = {
           name: e.target.name.value,
           email: e.target.email.value,
@@ -124,7 +125,7 @@ export default function Home() {
       </Head>
       <Nav user={user} showLogin={showLogin} showRegister={showRegister} />
       {
-        !guest ? <Login setLoggedIn={setGuest} setUser={setUser} /> 
+        !guest ? <Login setUser={setUser} /> 
       :
       <div className={styles.container}>
             <Sidebar channel={channel} setChannel={setChannel} setPreviousChannel={setPreviousChannel} />

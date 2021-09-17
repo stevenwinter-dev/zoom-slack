@@ -23,6 +23,10 @@ if (process.env.NODE_ENV === 'production') {
 
 console.log(__dirname)
 
+app.get('/', (req,res) => {
+    res.send('backend')
+})
+
 app.get('/userInfo/:id', async(req, res) => {
     console.log(req.params)
     console.log(req.params.id)

@@ -17,15 +17,7 @@ app.use(cors())
 app.use(express.json())
 app.use('/authentication', auth)
 
-if (process.env.NODE_ENV === 'production') {
-    app.use(express.static(path.join(__dirname, 'client/build')))
-}
-
-console.log(__dirname)
-
-app.get('/', (req,res) => {
-    res.send('backend')
-})
+app.use(express.static(path.join(__dirname, 'client/build')))
 
 app.get('/userInfo/:id', async(req, res) => {
     console.log(req.params)

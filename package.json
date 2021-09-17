@@ -8,7 +8,8 @@
     "npm": "7.6.0"
   },
   "scripts": {
-    "start": "node index.js",
+    "start": "node index.js && cd client && npm run start",
+    "test": "echo \"Error: no test specified\" && exit 1",
     "heroku-postbuild": "cd client && npm install && npm run build"
   },
   "author": "Steven Winter",

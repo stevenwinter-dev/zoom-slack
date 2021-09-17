@@ -13,7 +13,9 @@ const path = require('path')
 const users = {};
 const socketToRoom = {};
 
-app.use(cors())
+app.use(cors({
+    origin: 'https://zoom-slack.vercel.app/'
+}))
 app.use(express.json())
 app.use('/authentication', auth)
 
@@ -76,7 +78,7 @@ app.post('/messages', async(req, res) => {
 const io = new Server(server, {
     cors: {
         // origin: "http://localhost:3000",
-        origin: "https://zoom-slack.vercel.app/",
+        origin: "https://zoom-slack.vercel.app",
         methods: ['GET', 'POST'],
     },
 })

@@ -76,7 +76,8 @@ app.post('/messages', async(req, res) => {
 
 const io = new Server(server, {
     cors: {
-        origin: "http://localhost:3000",
+        // origin: "http://localhost:3000",
+        origin: "https://zoom-slack.vercel.app",
         methods: ['GET', 'POST'],
     },
 })

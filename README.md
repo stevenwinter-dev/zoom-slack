@@ -29,7 +29,6 @@ Upon arrival to the site, the visitor can choose to register for an account, log
 - Socket .IO
 - WebRTC
 - JSON Web Tokens
-- Nodemailer
 
 ## Install Instructions
 ```bash

@@ -67,8 +67,6 @@ npm run dev
 
 - Using the PERN stack was fun but challenging. There were many challenges that I did not initially expect, like the different syntax for querying my database, etc. In fact, my first memory of trying to use Postgres with Express was when I was in my index.js and started writing in Python. That's when I realized this required a different mindset than my previous apps. Ultimately, the Node-Postgres library helped solve many of my issues. 
 
-- I used too many technologies that I hadn't worked with before. Next.js, PERN stack, socket io, WebRTC. Each one provided numerous challenges and trying to fit them all together was a pain. I think next time I'll pick a new tech or two and go from there. That being said, still happy with the end result!
-
 ## Future Features
 
 - I'd like to add more functionality to user login and registration in the form of better error messages, better success messages, interacting with previous chat messages, the ability to private message and create new rooms, and many other quality of life improvements.

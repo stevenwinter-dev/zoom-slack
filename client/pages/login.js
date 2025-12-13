@@ -10,8 +10,8 @@ const login = () => {
             email: e.target.email.value,
             password: e.target.password.value,
         }
-        // axios.post('http://localhost:3001/authentication/login', {
-        axios.post('https://zoom-slack.herokuapp.com/authentication/login', {
+        axios.post('http://localhost:3001/authentication/login', {
+        // axios.post('https://zoom-slack.herokuapp.com/authentication/login', {
             data: data
         })
     }

@@ -86,21 +86,32 @@ const ChatContainer = ({socket, user, channel, userId}) => {
     const [loading, isLoading] = useState(true)
     const elementRef = useRef()
 
+    useEffect(() => {
+        if (channel && socket) {
+            socket.emit('join', channel);
+        }
+        return () => {
+            if (channel && socket) {
+                socket.emit('leave', channel);
+            }
+        };
+    }, [channel, socket]);
+
     const ScrollToBot = () => {
         useEffect(() => elementRef.current.scrollIntoView())
         return <div ref={elementRef} />
     }
 
     const fetchData = async (channel) => {
-        // let response = await axios(`http://localhost:3001/messages/${channel}`)
-        let response = await axios(`https://zoom-slack.herokuapp.com/messages/${channel}`)
+        let response = await axios(`http://localhost:3001/messages/${channel}`)
+        // let response = await axios(`https://zoom-slack.herokuapp.com/messages/${channel}`)
         console.log(response.data)
         setChats(response.data)
     }
 
     const fetchUserData = async (userId) => {
-        // let response = await axios.get(`http://localhost:3001/userInfo/${userId}`)
-        let response = await axios.get(`https://zoom-slack.herokuapp.com/userInfo/${userId}`)
+        let response = await axios.get(`http://localhost:3001/userInfo/${userId}`)
+        // let response = await axios.get(`https://zoom-slack.herokuapp.com/userInfo/${userId}`)
         setUserInfo(response.data[0])
         console.log(response.data[0])
     }
@@ -134,8 +145,8 @@ const ChatContainer = ({socket, user, channel, userId}) => {
             console.log(newMessage)
             await socket.emit('send', messageData)
             setChats(current => [...current, messageData])
-            // axios.post('http://localhost:3001/messages',{
-            axios.post('https://zoom-slack.herokuapp.com/messages',{
+            axios.post('http://localhost:3001/messages',{
+            // axios.post('https://zoom-slack.herokuapp.com/messages',{
                 data: messageData
             })
         }

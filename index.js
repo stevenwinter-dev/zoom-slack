@@ -75,8 +75,10 @@ app.post('/messages', async(req, res) => {
 
 const io = new Server(server, {
     cors: {
-        // origin: "http://localhost:3000",
-        origin: "https://zoom-slack.vercel.app",
+        origin: [
+            "http://localhost:3000",
+            "https://zoom-slack.vercel.app"
+        ],
         methods: ['GET', 'POST'],
     },
 })
@@ -127,7 +129,7 @@ io.on('connection', socket => {
 
     socket.on('send', msg => {
         console.log(`new CL ${msg.channel}`)
-        socket.to(msg.channel).emit('receive', msg)
+        io.in(msg.channel).emit('receive', msg)
     })
 })
 

@@ -1,4 +1,4 @@
-CREATE DATABASE zoom_slack;
+-- CREATE DATABASE zoom_slack;
 
 CREATE TABLE users(
     user_id SERIAL PRIMARY KEY,

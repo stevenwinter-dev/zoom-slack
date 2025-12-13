@@ -2,82 +2,9 @@ import { useEffect, useRef, useState } from 'react'
 import chatContainerStyles from '../styles/ChatContainer.module.css'
 import CreateMessage from './CreateMessage'
 import Message from './Message'
-import chatData from '../seed'
-import messageStyles from '../styles/Message.module.css'
 import axios from 'axios'
 import Room from './Room'
 const API_URL = process.env.NEXT_PUBLIC_API_URL;
-
-
-// const ChatContainer = ({socket, user, channel}) => {
-    
-//     const [newMessage, setNewMessage] = useState('')
-//     const elementRef = useRef()
-
-//     const ScrollToBot = () => {
-//         useEffect(() => elementRef.current.scrollIntoView())
-//         return <div ref={elementRef} />
-//     }
-
-//     const sendMessage = async (e) => {
-//         e.preventDefault()
-//         if (newMessage !== '') {
-//             const currentDate = new Date()
-//             const messageData = {
-//                 user_name: user,
-//                 room: channel,
-//                 body: newMessage,
-//                 date: currentDate.toLocaleDateString(),
-//                 time: currentDate.getHours() + ":" + currentDate.getMinutes() + ":" + currentDate.getSeconds()
-//             }
-//             await socket.emit('send', messageData)
-//             setChats(current => [...current, messageData])
-//         }
-//         e.target.body.value = ''
-//         setNewMessage('')
-//     }
-
-//     const [chats, setChats] = useState([])
-//     const [loading, setLoading] = useState(true)
-
-//     const fetchData = async (channel) => {
-//         setLoading(true)
-//         let response = await axios(`http://localhost:3001/messages/${channel}`)
-//         console.log(response.data)
-//         setChats(current => [...current, response.data])
-//         setLoading(false)
-//     }
-
-//     useEffect(()=> {
-//         fetchData(channel)
-//         setLoading(false)
-//     }, [channel])
-
-//     const text = (e) => {
-//         setNewMessage(e.target.value)
-//     }
-
-//     useEffect(() => {
-//         socket.on('receive', msg => {
-//             setChats(current => [...current, msg])
-//         })
-//     }, [socket])
-
-//     return (
-//         <div className={chatContainerStyles.chatcontainer}>
-//             <h2>{channel}</h2>
-//             <div className={chatContainerStyles['chatcontainer-messages']} id='chat-msg-container'>
-//                 {console.log(chats)}
-//                 {!loading? chats.map(chat => chat.channel === channel ? <Message chat={chat} key={chat.body} /> : '<p>no messages</p>') : <p>loading...</p>}
-//                 <ScrollToBot />
-//             </div>
-//             <CreateMessage ScrollToBot={ScrollToBot} handleSubmit={sendMessage} text={text} />
-//         </div>
-//     )
-// }
-
-// export default ChatContainer
-
 
 const ChatContainer = ({socket, user, channel, userId}) => {
 
@@ -105,14 +32,12 @@ const ChatContainer = ({socket, user, channel, userId}) => {
 
     const fetchData = async (channel) => {
         let response = await axios(`${API_URL}/messages/${channel}`)
-        console.log(response.data)
         setChats(response.data)
     }
 
     const fetchUserData = async (userId) => {
         let response = await axios.get(`${API_URL}/userInfo/${userId}`)
         setUserInfo(response.data[0])
-        console.log(response.data[0])
     }
 
     useEffect(()=> {
@@ -164,7 +89,7 @@ const ChatContainer = ({socket, user, channel, userId}) => {
             <h2>{channel}</h2>
             <h2>{userInfo.user_name}</h2>
             <div className={chatContainerStyles['chatcontainer-messages']} id='chat-msg-container'>
-                {chats.map(chat => chat.channel === channel ? <Message chat={chat} key={chat.time} /> : null)}
+                {chats.map(chat => chat.channel === channel ? <Message chat={chat} key={chat.message_id || `${chat.time}-${chat.user_id}`} /> : null)}
                 <ScrollToBot />
             </div>
             <CreateMessage user={user} ScrollToBot={ScrollToBot} handleSubmit={sendMessage} text={text} />

@@ -2,6 +2,7 @@ import React, { useEffect, useRef, useState } from "react";
 import io from "socket.io-client";
 import Peer from 'simple-peer'
 import videoChannelStyles from '../styles/VideoChannel.module.css'
+const API_URL = process.env.NEXT_PUBLIC_API_URL;
 
     const Video = (props) => {
         const ref = useRef();
@@ -36,8 +37,7 @@ import videoChannelStyles from '../styles/VideoChannel.module.css'
         const roomID = props.channel;
     
         useEffect(() => {
-            socketRef.current = io.connect("http://localhost:3001");
-            // socketRef.current = io.connect("https://zoom-slack.herokuapp.com/");
+            socketRef.current = io.connect(`${API_URL}`);
             navigator.mediaDevices.getUserMedia({ video: videoConstraints, audio: true }).then(stream => {
                 userVideo.current.srcObject = stream;
                 socketRef.current.emit("join room", roomID);

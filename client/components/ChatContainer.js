@@ -6,6 +6,7 @@ import chatData from '../seed'
 import messageStyles from '../styles/Message.module.css'
 import axios from 'axios'
 import Room from './Room'
+const API_URL = process.env.NEXT_PUBLIC_API_URL;
 
 
 // const ChatContainer = ({socket, user, channel}) => {
@@ -103,15 +104,13 @@ const ChatContainer = ({socket, user, channel, userId}) => {
     }
 
     const fetchData = async (channel) => {
-        let response = await axios(`http://localhost:3001/messages/${channel}`)
-        // let response = await axios(`https://zoom-slack.herokuapp.com/messages/${channel}`)
+        let response = await axios(`${API_URL}/messages/${channel}`)
         console.log(response.data)
         setChats(response.data)
     }
 
     const fetchUserData = async (userId) => {
-        let response = await axios.get(`http://localhost:3001/userInfo/${userId}`)
-        // let response = await axios.get(`https://zoom-slack.herokuapp.com/userInfo/${userId}`)
+        let response = await axios.get(`${API_URL}/userInfo/${userId}`)
         setUserInfo(response.data[0])
         console.log(response.data[0])
     }
@@ -129,9 +128,9 @@ const ChatContainer = ({socket, user, channel, userId}) => {
     }
 
     const sendMessage = async (e) => {
-        e.preventDefault()
+        e.preventDefault();
         if (newMessage !== '') {
-            const currentDate = new Date()
+            const currentDate = new Date();
             const messageData = {
                 user_id: userId,
                 user_name: userInfo.user_name,
@@ -140,25 +139,23 @@ const ChatContainer = ({socket, user, channel, userId}) => {
                 channel: channel,
                 date: currentDate.toLocaleDateString(),
                 time: currentDate.getHours() + ":" + currentDate.getMinutes() + ":" + currentDate.getSeconds()
-            }
-            console.log(userInfo)
-            console.log(newMessage)
-            await socket.emit('send', messageData)
-            setChats(current => [...current, messageData])
-            axios.post('http://localhost:3001/messages',{
-            // axios.post('https://zoom-slack.herokuapp.com/messages',{
+            };
+            await socket.emit('send', messageData);
+            axios.post(`${API_URL}/messages`, {
                 data: messageData
-            })
+            });
         }
-        e.target.body.value = ''
-        setNewMessage('')
-    }
+        e.target.body.value = '';
+        setNewMessage('');
+    };
 
     useEffect(() => {
-        socket.on('receive', msg => {
-            setChats(current => [...current, msg])
-        })
-    }, [socket])
+        const handler = msg => setChats(current => [...current, msg]);
+        socket.on('receive', handler);
+        return () => {
+            socket.off('receive', handler);
+        };
+    }, [socket]);
 
     return (
         <div className={chatContainerStyles.chatcontainer}>

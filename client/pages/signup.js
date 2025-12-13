@@ -1,5 +1,6 @@
 import styles from '../styles/Signup.module.css'
 import axios from 'axios'
+const API_URL = process.env.NEXT_PUBLIC_API_URL;
 
 const signup = () => {
     
@@ -10,8 +11,7 @@ const signup = () => {
             password: e.target.password.value,
             avatar: e.target.avatar.value
         }
-        axios.post('http://localhost:3001/authentication/register', {
-        // axios.post('https://zoom-slack.herokuapp.com/authentication/register', {
+        axios.post(`${API_URL}/authentication/register`, {
             data: data
         })
     }

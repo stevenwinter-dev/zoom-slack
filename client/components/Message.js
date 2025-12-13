@@ -1,6 +1,7 @@
 import messageStyles from '../styles/Message.module.css'
 
 const Message = ({chat}) => {
+    console.log(chat)
     return (
         <div className={messageStyles['message-container']}>
             <div className={messageStyles.message}>

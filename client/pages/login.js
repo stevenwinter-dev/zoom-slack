@@ -1,6 +1,7 @@
 import axios from 'axios'
 import { useState } from 'react'
 import styles from '../styles/Login.module.css'
+const API_URL = process.env.NEXT_PUBLIC_API_URL;
 
 const login = () => {
     const [isAuthenticated, setIsAuthenticated] = useState(false)
@@ -10,8 +11,7 @@ const login = () => {
             email: e.target.email.value,
             password: e.target.password.value,
         }
-        axios.post('http://localhost:3001/authentication/login', {
-        // axios.post('https://zoom-slack.herokuapp.com/authentication/login', {
+        axios.post(`${API_URL}/authentication/login`, {
             data: data
         })
     }

@@ -9,9 +9,9 @@ import formStyles from '../styles/Forms.module.css'
 import io from 'socket.io-client'
 import axios from 'axios'
 import jwt from 'jsonwebtoken'
+const API_URL = process.env.NEXT_PUBLIC_API_URL;
 
-const socket = io.connect('http://localhost:3001')
-// const socket = io.connect('https://zoom-slack.herokuapp.com/')
+const socket = io.connect(`${API_URL}`)
 
 export default function Home() {
 
@@ -48,8 +48,7 @@ export default function Home() {
             email: e.target.email.value,
             password: e.target.password.value,
         }
-        axios.post('http://localhost:3001/authentication/login', {
-        // axios.post('https://zoom-slack.herokuapp.com/authentication/login', {
+        axios.post(`${API_URL}/authentication/login`, {
             data: data
         }).then(res => {
           const token = res.data.token
@@ -69,8 +68,7 @@ export default function Home() {
           password: e.target.password.value,
           avatar: e.target.avatar.value
       }
-      axios.post('http://localhost:3001/authentication/register', {
-      // axios.post('https://zoom-slack.herokuapp.com/authentication/register', {
+      axios.post(`${API_URL}/authentication/register`, {
           data: data
       })
   }

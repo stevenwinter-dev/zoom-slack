@@ -1,4 +1,5 @@
 import messageStyles from '../styles/Message.module.css'
+import Image from 'next/image'
 
 const Message = ({chat, user}) => {
     console.log(chat)

@@ -8,20 +8,21 @@ const Nav = ({user, showLogin, showRegister}) => {
                 <h1>ZOOM <i className="far fa-comment-dots"></i> SLACK</h1>
             </div>
             <ul>
-                {user ?
+                {user ? (
                     <li>
-                        <Link href='#'>{user}</Link>
+                    {user}'s Account
                     </li>
-                    :
-                    null
-                }
-                <li onClick={showLogin}>
-                    Login
-                </li>
-                <li onClick={showRegister}>
-                    Signup
-                </li>
-            </ul>
+                ) : (
+                    <>
+                    <li onClick={showLogin}>
+                        Login
+                    </li>
+                    <li onClick={showRegister}>
+                        Signup
+                    </li>
+                    </>
+                )}
+                </ul>
         </nav>
     )
 }

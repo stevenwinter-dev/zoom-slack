@@ -10,6 +10,12 @@
     box-shadow: rgba(0, 0, 0, 0.35) 2px 1px 10px inset;
 }
 
+@media (max-width: 900px) {
+    .chatcontainer {
+        padding: 0;
+    }
+}
+
 .chatcontainer, .chatcontainer-messages {
     width: 80%;
 }
@@ -19,6 +25,12 @@
     flex-direction: column;
     align-items: center;
     overflow-y: scroll;
+}
+
+@media (max-width: 900px) {
+    .chatcontainer-messages {
+        width: 100%;
+    }
 }
 
 /* width */

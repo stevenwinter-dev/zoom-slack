@@ -7,11 +7,18 @@
     position: relative;
 }
 
+@media (max-width: 900px) {
+    .create-message-container {
+        width: 93%;
+        margin: 0;
+    }
+}
 .create-message-container input{
     border: 1px solid transparent;
     width: 80%;
     padding: 15px;
     border-radius: 10px;
+    outline: none;
 }
 
 .create-message-container button {

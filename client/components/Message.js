@@ -1,13 +1,18 @@
 import messageStyles from '../styles/Message.module.css'
 
-const Message = ({chat}) => {
+const Message = ({chat, user}) => {
+    console.log(chat)
+    const avatar = chat.user_avatar || "https://www.citypng.com/public/uploads/preview/black-user-member-guest-icon-701751695037011q8iwf4mjbn.png";
+    const userName = chat.user_name || `${user} - Guest`;
     return (
         <div className={messageStyles['message-container']}>
             <div className={messageStyles.message}>
-            <img src={chat.user_avatar} alt="" />
-                <p>{chat.user_name}<span>{chat.time}</span><span>{chat.date}</span></p>
+                <div  className={messageStyles['user-info']}>
+                <img src={avatar} alt="user-avatar" width={50} height={50} />
+                <strong>{userName}</strong></div>
+                <p className='timestamp'><span>{chat.time}</span><span>{chat.date}</span></p>
             </div>
-            <p>{chat.body}</p>
+            <p className='chatMessage'>{chat.body}</p>
         </div>
     )
 }

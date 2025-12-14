@@ -6,6 +6,13 @@
     flex-direction: column;
 }
 
+@media (max-width: 900px) {
+    .index-container {
+        height: 100vh;
+        margin-top: -90px;
+    }
+}
+
 .index-container h1 {
     margin: 0;
 }
@@ -28,10 +35,21 @@
     position: relative;
 }
 
+@media (max-width: 900px) {
+    .index-form-container {
+        width: 75%;
+    }
+}
+
 .index-form-container input{
     border: 1px solid transparent;
     padding: 15px;
     border-radius: 10px;
+    width: 100%;
+}
+
+.index-form-container input:focus {
+    outline: none;
 }
 
 .index-form-container button {
@@ -47,6 +65,12 @@
     border-bottom-right-radius: 10px;
     cursor: pointer;
     transition: .2s;
+}
+
+@media (max-width: 900px) {
+    .index-form-container button {
+        right: -2px;
+    }
 }
 
 .index-form-container button i {

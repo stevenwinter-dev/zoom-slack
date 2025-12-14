@@ -89,7 +89,7 @@ const ChatContainer = ({socket, user, channel, userId}) => {
             <h2>{channel}</h2>
             <h2>{userInfo.user_name}</h2>
             <div className={chatContainerStyles['chatcontainer-messages']} id='chat-msg-container'>
-                {chats.map(chat => chat.channel === channel ? <Message chat={chat} key={chat.message_id || `${chat.time}-${chat.user_id}`} /> : null)}
+                {chats.map(chat => chat.channel === channel ? <Message chat={chat} user={user} key={chat.message_id || `${chat.time}-${chat.user_id}`} /> : null)}
                 <ScrollToBot />
             </div>
             <CreateMessage user={user} ScrollToBot={ScrollToBot} handleSubmit={sendMessage} text={text} />

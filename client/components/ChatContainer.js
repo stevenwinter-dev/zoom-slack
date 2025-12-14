@@ -58,7 +58,7 @@ const ChatContainer = ({socket, user, channel, userId}) => {
             const currentDate = new Date();
             const messageData = {
                 user_id: userId,
-                user_name: userInfo.user_name,
+                user_name: userInfo.user_name || user,
                 user_avatar: userInfo.user_avatar,
                 body: newMessage,
                 channel: channel,

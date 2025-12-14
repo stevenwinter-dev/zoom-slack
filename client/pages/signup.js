@@ -1,19 +1,28 @@
 import styles from '../styles/Signup.module.css'
 import axios from 'axios'
+import { useRouter } from 'next/router'
 const API_URL = process.env.NEXT_PUBLIC_API_URL;
 
 const signup = () => {
+    const router = useRouter();
     
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
+        e.preventDefault();
         const data = {
             name: e.target.name.value,
             email: e.target.email.value,
             password: e.target.password.value,
             avatar: e.target.avatar.value
         }
-        axios.post(`${API_URL}/authentication/register`, {
-            data: data
-        })
+        try {
+            await axios.post(`${API_URL}/authentication/register`, {
+                data: data
+            });
+            router.push('/');
+        } catch (err) {
+            console.error('Signup failed:', err);
+            alert('Signup failed. Please try again.');
+        }
     }
 
     return (

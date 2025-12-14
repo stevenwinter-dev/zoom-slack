@@ -58,6 +58,83 @@ app.post('/messages', async(req, res) => {
     }
 })
 
+// Admin routes
+app.get('/admin/users', async(req, res) => {
+    try {
+        const users = await pool.query('SELECT user_id, user_name, user_email, user_avatar FROM users')
+        res.json(users.rows)
+    } catch (err) {
+        console.error('Error fetching users:', err)
+        res.status(500).json({ error: 'Failed to fetch users' })
+    }
+})
+
+app.post('/admin/users', async(req, res) => {
+    try {
+        const { user_name, user_email, user_password, user_avatar } = req.body
+        const newUser = await pool.query(
+            'INSERT INTO users (user_name, user_email, user_password, user_avatar) VALUES ($1, $2, $3, $4) RETURNING user_id, user_name, user_email, user_avatar',
+            [user_name, user_email, user_password, user_avatar]
+        )
+        res.json(newUser.rows[0])
+    } catch (err) {
+        console.error('Error creating user:', err)
+        res.status(500).json({ error: 'Failed to create user' })
+    }
+})
+
+app.put('/admin/users/:id', async(req, res) => {
+    try {
+        const { id } = req.params
+        const { user_name, user_email, user_avatar } = req.body
+        const updatedUser = await pool.query(
+            'UPDATE users SET user_name = $1, user_email = $2, user_avatar = $3 WHERE user_id = $4 RETURNING user_id, user_name, user_email, user_avatar',
+            [user_name, user_email, user_avatar, id]
+        )
+        res.json(updatedUser.rows[0])
+    } catch (err) {
+        console.error('Error updating user:', err)
+        res.status(500).json({ error: 'Failed to update user' })
+    }
+})
+
+app.delete('/admin/users/:id', async(req, res) => {
+    try {
+        const { id } = req.params
+        await pool.query('DELETE FROM users WHERE user_id = $1', [id])
+        res.json({ message: 'User deleted successfully' })
+    } catch (err) {
+        console.error('Error deleting user:', err)
+        res.status(500).json({ error: 'Failed to delete user' })
+    }
+})
+
+app.put('/admin/messages/:id', async(req, res) => {
+    try {
+        const { id } = req.params
+        const { body, channel } = req.body
+        const updatedMessage = await pool.query(
+            'UPDATE message SET body = $1, channel = $2 WHERE message_id = $3 RETURNING *',
+            [body, channel, id]
+        )
+        res.json(updatedMessage.rows[0])
+    } catch (err) {
+        console.error('Error updating message:', err)
+        res.status(500).json({ error: 'Failed to update message' })
+    }
+})
+
+app.delete('/admin/messages/:id', async(req, res) => {
+    try {
+        const { id } = req.params
+        await pool.query('DELETE FROM message WHERE message_id = $1', [id])
+        res.json({ message: 'Message deleted successfully' })
+    } catch (err) {
+        console.error('Error deleting message:', err)
+        res.status(500).json({ error: 'Failed to delete message' })
+    }
+})
+
 const io = new Server(server, {
     cors: {
         origin: [

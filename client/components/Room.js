@@ -69,7 +69,7 @@ const API_URL = process.env.NEXT_PUBLIC_API_URL;
                     item.peer.signal(payload.signal);
                 });
             })
-        }, []);
+        }, [roomID]);
     
         function createPeer(userToSignal, callerID, stream) {
             const peer = new Peer({

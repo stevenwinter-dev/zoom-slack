@@ -11,7 +11,7 @@ const API_URL = process.env.NEXT_PUBLIC_API_URL;
             props.peer.on("stream", stream => {
                 ref.current.srcObject = stream;
             })
-        }, []);
+        }, [props.peer]);
     
         return (
             <video playsInline autoPlay ref={ref} className={videoChannelStyles['video-channel-video']} />

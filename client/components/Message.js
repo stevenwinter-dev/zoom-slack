@@ -8,7 +8,7 @@ const Message = ({chat, user}) => {
         <div className={messageStyles['message-container']}>
             <div className={messageStyles.message}>
                 <div  className={messageStyles['user-info']}>
-                <img src={avatar} alt="user-avatar" width={50} height={50} />
+                <Image src={avatar} alt="user-avatar" width={50} height={50} />
                 <strong>{userName}</strong></div>
                 <p className='timestamp'><span>{chat.time}</span><span>{chat.date}</span></p>
             </div>

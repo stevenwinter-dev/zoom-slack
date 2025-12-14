@@ -10,7 +10,7 @@ const Nav = ({user, showLogin, showRegister}) => {
             <ul>
                 {user ? (
                     <li>
-                    {user}'s Account
+                    {`${user}'s Account`}
                     </li>
                 ) : (
                     <>

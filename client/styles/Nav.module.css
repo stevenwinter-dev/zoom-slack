@@ -1,11 +1,12 @@
 .nav {
-   background-color: transparent;
-    width: 96%;
+    background: linear-gradient(to left, #2ebf91, #8360c3);
+    width: 100%;
     height: 10vh;
     display: flex;
     justify-content: space-between;
     color: white;
     align-items: center;
+    position: relative;
 }
 
 .nav ul {

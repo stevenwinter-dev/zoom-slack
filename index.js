@@ -31,7 +31,19 @@ app.post('/user/signup', (req, res) => {
 
 app.get('/messages', async(req, res) => {
     try {
-        const messages = await pool.query('SELECT * FROM message');
+        const messages = await pool.query(`
+            SELECT 
+                m.message_id,
+                m.user_id,
+                m.body,
+                m.channel,
+                m.date,
+                m.time,
+                COALESCE(NULLIF(m.user_name, ''), u.user_name, CASE WHEN m.user_id IS NOT NULL THEN 'Unknown User' ELSE 'Guest' END) as user_name,
+                COALESCE(NULLIF(m.user_avatar, ''), u.user_avatar) as user_avatar
+            FROM message m
+            LEFT JOIN users u ON m.user_id = u.user_id
+        `);
         res.json(messages.rows)
     } catch (err) {
         console.log(err)
@@ -40,7 +52,23 @@ app.get('/messages', async(req, res) => {
 
 app.get('/messages/:id', async(req, res) => {
     try {
-        const messages = await pool.query('SELECT * FROM message WHERE channel = $1', [req.params.id]);
+        const messages = await pool.query(`
+            SELECT 
+                m.message_id,
+                m.user_id,
+                m.body,
+                m.channel,
+                m.date,
+                m.time,
+                m.user_name as stored_user_name,
+                u.user_name as joined_user_name,
+                COALESCE(NULLIF(m.user_name, ''), u.user_name, CASE WHEN m.user_id IS NOT NULL THEN 'Unknown User' ELSE 'Guest' END) as user_name,
+                COALESCE(NULLIF(m.user_avatar, ''), u.user_avatar) as user_avatar
+            FROM message m
+            LEFT JOIN users u ON m.user_id = u.user_id
+            WHERE m.channel = $1
+        `, [req.params.id]);
+        console.log('Sample message data:', messages.rows[0]);
         res.json(messages.rows)
     } catch (err) {
         console.log(err)
@@ -49,8 +77,10 @@ app.get('/messages/:id', async(req, res) => {
 
 app.post('/messages', async(req, res) => {
     try {
-        const { user_id, body, channel, date, time } = req.body.data
-        const newMessage = await pool.query('INSERT INTO message (user_id, body, channel, date, time) VALUES ($1, $2, $3, $4, $5) RETURNING *', [user_id, body, channel, date, time])
+        const { user_id, user_name, user_avatar, body, channel, date, time } = req.body.data
+        console.log('Saving message with data:', { user_id, user_name, user_avatar, body, channel, date, time });
+        const newMessage = await pool.query('INSERT INTO message (user_id, user_name, user_avatar, body, channel, date, time) VALUES ($1, $2, $3, $4, $5, $6, $7) RETURNING *', [user_id, user_name, user_avatar, body, channel, date, time])
+        console.log('Saved message:', newMessage.rows[0]);
         res.json(newMessage.rows[0])
     } catch (err) {
         console.error('Error saving message:', err)

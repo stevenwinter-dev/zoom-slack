@@ -3,7 +3,7 @@ import axios from 'axios'
 import { useRouter } from 'next/router'
 const API_URL = process.env.NEXT_PUBLIC_API_URL;
 
-const signup = () => {
+const Signup = () => {
     const router = useRouter();
     
     const handleSubmit = async (e) => {
@@ -51,4 +51,4 @@ const signup = () => {
     )
 }
 
-export default signup
+export default Signup

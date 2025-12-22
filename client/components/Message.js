@@ -2,9 +2,10 @@ import messageStyles from '../styles/Message.module.css'
 import Image from 'next/image'
 
 const Message = ({chat, user}) => {
+    console.log(`chat in Message component: ${JSON.stringify(chat)}`)
     console.log(chat)
     const avatar = chat.user_avatar || "https://www.citypng.com/public/uploads/preview/black-user-member-guest-icon-701751695037011q8iwf4mjbn.png";
-    const userName = chat.user_name || `${user} - Guest`;
+    const userName = chat.user_name || (chat.user_id ? 'Unknown User' : 'Guest');
     return (
         <div className={messageStyles['message-container']}>
             <div className={messageStyles.message}>

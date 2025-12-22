@@ -58,8 +58,8 @@ const ChatContainer = ({socket, user, channel, userId}) => {
             const currentDate = new Date();
             const messageData = {
                 user_id: userId,
-                user_name: userInfo.user_name || user,
-                user_avatar: userInfo.user_avatar,
+                user_name: userId ? (userInfo.user_name || user) : 'Guest',
+                user_avatar: userId ? userInfo.user_avatar : null,
                 body: newMessage,
                 channel: channel,
                 date: currentDate.toLocaleDateString(),

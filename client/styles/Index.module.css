@@ -4,6 +4,26 @@
     justify-content: center;
     align-items: center;
     flex-direction: column;
+    background-color: #fff;
+}
+
+.welcome-buttons-container {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    align-items: center;
+    width: 280px;
+}
+
+.welcome-btn:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.25);
+    filter: brightness(1.1);
+}
+
+.welcome-btn:active {
+    transform: translateY(-1px);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
 }
 
 @media (max-width: 900px) {
